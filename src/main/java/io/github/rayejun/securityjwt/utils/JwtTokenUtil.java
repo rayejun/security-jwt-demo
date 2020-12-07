@@ -8,10 +8,12 @@ import com.nimbusds.jwt.SignedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +24,7 @@ public class JwtTokenUtil {
 
     private static final byte[] SECRET = DigestUtils.md5DigestAsHex(Constants.AUTHORIZATION_SECRET.getBytes()).getBytes(StandardCharsets.UTF_8);
 
-    public static String createToken(String username, String id, List<GrantedAuthority> authorities) {
+    public static String createToken(String username, String id, List<SimpleGrantedAuthority> authorities) {
         try {
             MACSigner macSigner = new MACSigner(SECRET);
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,7 +18,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        throw new UsernameNotFoundException(username + " not found");
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new User(username, ID_FOR_PASSWORD_ENCODE + "$2a$10$OcJqb2haehNP.tb7upQIAerDXBfWzbfontsuskYJavpDyh5jA0qW.", authorities);
     }
 }
